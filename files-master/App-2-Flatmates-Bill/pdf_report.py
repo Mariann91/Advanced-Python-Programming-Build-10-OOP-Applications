@@ -1,4 +1,5 @@
 from fpdf import FPDF
+import webbrowser
 
 
 class PdfReport:
@@ -30,9 +31,13 @@ class PdfReport:
         # 6. Creates cells for payment share information
         pdf_report.set_font(family="Times", size=14)
         pdf_report.cell(w=150, h=40, txt=flatmate1.name)
-        pdf_report.cell(w=150, h=40, txt=flatmate2.name, ln=1)
+        pdf_report.cell(w=150, h=40, txt=f"{flatmate1_pay:.2f}", ln=1)
 
-        pdf_report.cell(w=150, h=40, txt=f"{flatmate1_pay:.2f}")
+        pdf_report.cell(w=150, h=40, txt=flatmate2.name)
         pdf_report.cell(w=150, h=40, txt=f"{flatmate2_pay:.2f}")
 
-        pdf_report.output(self.filename)
+        # 7. Generates PDF file.
+        pdf_report.output(f"files/{self.filename}")
+
+        # 8. Opens the PDF file automatically
+        webbrowser.open(self.filename)
